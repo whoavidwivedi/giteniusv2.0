@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "@arcjet/ip": "catalog:",
+    "@google/genai": "catalog:",
     "@hono/node-server": "catalog:",
     "@hono/standard-validator": "catalog:",
     "@packages/auth": "workspace:*",

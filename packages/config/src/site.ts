@@ -27,6 +27,7 @@ export const features = {
   docs: true,
   internalDocs: true,
   waitlist: false,
+  allowlist: false,
 }
 
 export type Feature = keyof typeof features

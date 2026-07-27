@@ -17,6 +17,7 @@ export const env = createEnv({
       .string()
       .transform((s) => s.split(",").map((v) => v.trim().replace(/\/$/, "")))
       .pipe(z.array(z.url())),
+    GEMINI_API_KEY: z.string().optional(),
   },
   runtimeEnv: {
     NODE_ENV: process.env.NODE_ENV,
@@ -26,6 +27,7 @@ export const env = createEnv({
     HONO_RATE_LIMIT: process.env.HONO_RATE_LIMIT,
     HONO_RATE_LIMIT_WINDOW_MS: process.env.HONO_RATE_LIMIT_WINDOW_MS,
     HONO_TRUSTED_ORIGINS: polyfillServer(process.env.HONO_TRUSTED_ORIGINS, "https://polyfill.url"),
+    GEMINI_API_KEY: process.env.GEMINI_API_KEY,
   },
   emptyStringAsUndefined: true,
 })
