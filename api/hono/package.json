@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "@arcjet/ip": "catalog:",
+    "@google/genai": "catalog:",
     "@hono/node-server": "catalog:",
     "@hono/standard-validator": "catalog:",
     "@packages/auth": "workspace:*",
@@ -43,7 +44,7 @@
     "typescript": "catalog:"
   },
   "portless": {
-    "name": "api.zerostarter",
+    "name": "api.giteniusv2-0",
     "script": "dev:app"
   }
 }
