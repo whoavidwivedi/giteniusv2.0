@@ -52,7 +52,6 @@ const LANGUAGE_COLORS: Record<string, string> = {
 
 const analyzeQuerySchema = z.object({
   username: z.string().trim().min(1),
-  token: z.string().trim().optional(),
 })
 
 const chatBodySchema = z.object({
@@ -87,7 +86,9 @@ export const githubRouter = new Hono()
       }
     }),
     async (c) => {
-      const { username, token } = c.req.valid("query")
+      const { username } = c.req.valid("query")
+      const authHeader = c.req.header("Authorization")
+      const token = authHeader?.replace(/^Bearer\s+/i, "").trim() || undefined
       const cleanUsername = username.replace(/^@/, "")
 
       // 1. Fetch User Data

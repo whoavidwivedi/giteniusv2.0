@@ -90,18 +90,24 @@ export function AssistantTab({ user, repos, aiAnalysis }: AssistantTabProps) {
         }),
       })
 
-      const data = await response.json()
+      const result = await response.json()
 
-      if (data.answer) {
+      if (!response.ok) {
+        const errBody = result.error || {}
+        throw new Error(errBody.message || "Failed to generate AI response.")
+      }
+
+      const answer = result.data?.answer
+      if (answer) {
         const assistantMsg: ChatMessage = {
           id: (Date.now() + 1).toString(),
           role: "assistant",
-          content: data.answer,
+          content: answer,
           timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
         }
         setMessages((prev) => [...prev, assistantMsg])
       } else {
-        throw new Error(data.error || "Failed to generate AI response.")
+        throw new Error("No answer received from AI.")
       }
     } catch (err: any) {
       setMessages((prev) => [

@@ -60,23 +60,26 @@ export default function App() {
 
       try {
         const queryParams = new URLSearchParams({ username: targetUsername.trim() })
+        const headers: Record<string, string> = {}
         if (githubToken) {
-          queryParams.append("token", githubToken.trim())
+          headers["Authorization"] = `Bearer ${githubToken.trim()}`
         }
 
         const res = await fetch(
           `${process.env.NEXT_PUBLIC_API_URL}/api/github/analyze?${queryParams.toString()}`,
+          { headers },
         )
         const result = await res.json()
 
         if (!res.ok) {
+          const errBody = result.error || {}
           throw {
-            message: result.error || "Failed to analyze profile.",
-            isRateLimit: result.isRateLimit,
+            message: errBody.message || "Failed to analyze profile.",
+            isRateLimit: errBody.code === "RATE_LIMITED",
           }
         }
 
-        setData(result)
+        setData(result.data)
         setUsername(targetUsername.trim())
         localStorage.setItem("gitcraft_last_user", targetUsername.trim())
 

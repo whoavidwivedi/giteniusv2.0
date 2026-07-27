@@ -28,10 +28,6 @@
     "start": "turbo run start",
     "test": "if [ -d tests ]; then bun packages/scripts/src/data-table-metrics.ts && bun test tests; fi"
   },
-  "dependencies": {
-    "html2pdf.js": "catalog:",
-    "jspdf": "catalog:"
-  },
   "devDependencies": {
     "@commitlint/cli": "catalog:",
     "@commitlint/config-conventional": "catalog:",
