@@ -1,12 +1,6 @@
 "use client"
 
-import {
-  RiSearchLine,
-  RiSparklingLine,
-  RiUser3Line,
-  RiQuestionLine,
-  RiLineChartLine,
-} from "@remixicon/react"
+import { RiSearchLine, RiSparklingLine, RiUser3Line, RiLineChartLine } from "@remixicon/react"
 import React, { useState } from "react"
 
 import { Button } from "@/components/ui/button"
@@ -98,7 +92,7 @@ export function SearchSection({ onSearch, isAnalyzing, currentUsername }: Search
             ) : (
               <>
                 <span>Analyze Profile</span>
-                <RiQuestionLine className="h-4 w-4" />
+                <RiSearchLine className="h-4 w-4" />
               </>
             )}
           </Button>
