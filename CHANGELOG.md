@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.0.2
+
+[compare changes](https://github.com/whoavidwivedi/giteniusv2.0/compare/v0.0.1...v0.0.2)
+
+### 💅 Refactors
+
+- Kebab-case dashboard component filenames ([2795cb3](https://github.com/whoavidwivedi/giteniusv2.0/commit/2795cb3))
+
+### ❤️ Contributors
+
+- Neeraj Dalal @nrjdalal
+
 ## v0.0.1
 
 ### 🚀 Enhancements
