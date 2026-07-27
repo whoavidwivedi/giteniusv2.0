@@ -65,7 +65,7 @@ export default function App() {
         }
 
         const res = await fetch(
-          `http://localhost:1356/api/github/analyze?${queryParams.toString()}`,
+          `${process.env.NEXT_PUBLIC_API_URL}/api/github/analyze?${queryParams.toString()}`,
         )
         const result = await res.json()
 
