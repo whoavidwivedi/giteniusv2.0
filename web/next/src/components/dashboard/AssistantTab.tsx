@@ -249,7 +249,7 @@ export function AssistantTab({ user, repos, aiAnalysis }: AssistantTabProps) {
         <Button
           type="submit"
           variant="secondary"
-          size="md"
+          size="default"
           disabled={isLoading || !inputQuery.trim()}
         >
           <RiSendPlaneLine className="h-4 w-4" />
