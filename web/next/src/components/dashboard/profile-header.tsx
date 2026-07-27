@@ -1,9 +1,7 @@
 "use client"
 
 import {
-  RiGithubFill,
   RiMapPinLine,
-  RiQuestionLine,
   RiStarLine,
   RiGitBranchLine,
   RiTeamLine,
@@ -13,8 +11,10 @@ import {
   RiLinksLine,
   RiBriefcaseLine,
   RiBuilding4Line,
-  RiTwitterXLine,
-  RiBookmarkLine,
+  RiCheckLine,
+  RiFileCopyLine,
+  RiGitRepositoryLine,
+  RiCodeSSlashLine,
 } from "@remixicon/react"
 import React, { useState } from "react"
 
@@ -74,7 +74,7 @@ export function ProfileHeader({ user, stats, aiAnalysis }: ProfileHeaderProps) {
                 className="absolute -right-1 -bottom-1 flex h-6 w-6 items-center justify-center rounded-full bg-emerald-500 text-white shadow-sm ring-2 ring-white dark:ring-slate-900"
                 title="Hireable Developer"
               >
-                <RiQuestionLine className="h-3.5 w-3.5" />
+                <RiBriefcaseLine className="h-3.5 w-3.5" />
               </span>
             )}
           </div>
@@ -112,7 +112,7 @@ export function ProfileHeader({ user, stats, aiAnalysis }: ProfileHeaderProps) {
             <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 pt-1 text-xs text-slate-600 dark:text-slate-400">
               {user.company && (
                 <span className="inline-flex items-center gap-1">
-                  <RiQuestionLine className="h-3.5 w-3.5 text-slate-400" />
+                  <RiBuilding4Line className="h-3.5 w-3.5 text-slate-400" />
                   {user.company}
                 </span>
               )}
@@ -170,12 +170,12 @@ export function ProfileHeader({ user, stats, aiAnalysis }: ProfileHeaderProps) {
           >
             {copiedPitch ? (
               <>
-                <RiQuestionLine className="h-3.5 w-3.5 text-emerald-600" />
+                <RiCheckLine className="h-3.5 w-3.5 text-emerald-600" />
                 <span className="font-medium text-emerald-600">Copied Bio</span>
               </>
             ) : (
               <>
-                <RiQuestionLine className="h-3.5 w-3.5" />
+                <RiFileCopyLine className="h-3.5 w-3.5" />
                 <span>Copy Bio Pitch</span>
               </>
             )}
@@ -213,7 +213,7 @@ export function ProfileHeader({ user, stats, aiAnalysis }: ProfileHeaderProps) {
 
         <div className="flex flex-col rounded-xl border border-slate-100 bg-slate-50 p-3 dark:border-slate-800 dark:bg-slate-800/40">
           <div className="flex items-center gap-1.5 text-xs font-medium text-slate-500 dark:text-slate-400">
-            <RiQuestionLine className="h-3.5 w-3.5 text-indigo-500" />
+            <RiGitRepositoryLine className="h-3.5 w-3.5 text-indigo-500" />
             <span>Repositories</span>
           </div>
           <span className="mt-1 text-lg font-bold text-slate-900 dark:text-white">
@@ -243,7 +243,7 @@ export function ProfileHeader({ user, stats, aiAnalysis }: ProfileHeaderProps) {
 
         <div className="col-span-2 flex flex-col rounded-xl border border-slate-100 bg-slate-50 p-3 sm:col-span-1 dark:border-slate-800 dark:bg-slate-800/40">
           <div className="flex items-center gap-1.5 text-xs font-medium text-slate-500 dark:text-slate-400">
-            <RiQuestionLine className="h-3.5 w-3.5 text-violet-500" />
+            <RiCodeSSlashLine className="h-3.5 w-3.5 text-violet-500" />
             <span>Top Language</span>
           </div>
           <span className="mt-1 truncate text-lg font-bold text-slate-900 dark:text-white">

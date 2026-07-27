@@ -3,10 +3,11 @@
 import {
   RiStarLine,
   RiGitBranchLine,
-  RiErrorWarningLine,
+  RiLightbulbLine,
   RiExternalLinkLine,
   RiSearchLine,
-  RiQuestionLine,
+  RiCodeSSlashLine,
+  RiArrowUpDownLine,
   RiSparklingLine,
   RiCodeBoxLine,
 } from "@remixicon/react"
@@ -147,7 +148,7 @@ export function RepositoriesTab({ repos, aiAnalysis }: RepositoriesTabProps) {
 
         <div className="flex flex-wrap items-center gap-2">
           <div className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400">
-            <RiQuestionLine className="h-3.5 w-3.5" />
+            <RiCodeSSlashLine className="h-3.5 w-3.5" />
             <span>Language:</span>
             <select
               value={selectedLanguage}
@@ -163,7 +164,7 @@ export function RepositoriesTab({ repos, aiAnalysis }: RepositoriesTabProps) {
           </div>
 
           <div className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400">
-            <RiQuestionLine className="h-3.5 w-3.5" />
+            <RiArrowUpDownLine className="h-3.5 w-3.5" />
             <span>Sort:</span>
             <select
               value={sortBy}
@@ -234,7 +235,7 @@ export function RepositoriesTab({ repos, aiAnalysis }: RepositoriesTabProps) {
                       </p>
                       {aiRepo.suggestedImprovement && (
                         <div className="flex items-start gap-1 border-t border-indigo-100/60 pt-1 text-[11px] text-amber-700 dark:border-indigo-900/30 dark:text-amber-300">
-                          <RiQuestionLine className="mt-0.5 h-3 w-3 shrink-0" />
+                          <RiLightbulbLine className="mt-0.5 h-3 w-3 shrink-0" />
                           <span>Suggest: {aiRepo.suggestedImprovement}</span>
                         </div>
                       )}

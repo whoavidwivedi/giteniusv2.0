@@ -1,15 +1,11 @@
 "use client"
 
 import {
-  RiSparklingLine,
   RiDashboardLine,
   RiCodeBoxLine,
   RiPulseLine,
   RiRobot2Line,
   RiErrorWarningLine,
-  RiKeyLine,
-  RiRefreshLine,
-  RiSearchLine,
 } from "@remixicon/react"
 import confetti from "canvas-confetti"
 import React, { useState, useEffect, useCallback } from "react"
@@ -22,7 +18,6 @@ import { OverviewTab } from "@/components/dashboard/overview-tab"
 import { ProfileHeader } from "@/components/dashboard/profile-header"
 import { RepositoriesTab } from "@/components/dashboard/repositories-tab"
 import { SearchSection } from "@/components/dashboard/search-section"
-import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
 import { AnalysisResponse } from "@/lib/types"
@@ -75,7 +70,7 @@ export default function App() {
           const errBody = result.error || {}
           throw {
             message: errBody.message || "Failed to analyze profile.",
-            isRateLimit: errBody.code === "RATE_LIMITED",
+            isRateLimit: errBody.code === "TOO_MANY_REQUESTS",
           }
         }
 
@@ -90,7 +85,7 @@ export default function App() {
             spread: 60,
             origin: { y: 0.6 },
           })
-        } catch (_) {}
+        } catch {}
       } catch (err: any) {
         console.error("Analysis Error:", err)
         setError({
@@ -121,8 +116,8 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 font-sans text-slate-900 transition-colors duration-200 selection:bg-indigo-500 selection:text-white dark:bg-slate-950 dark:text-slate-100">
-      {/* Top Navbar */}
+    <div className="min-h-svh bg-slate-50 pt-14 font-sans text-slate-900 transition-colors duration-200 selection:bg-indigo-500 selection:text-white dark:bg-slate-950 dark:text-slate-100">
+      {/* Top Navbar, offset below the fixed site navbar in the root layout */}
       <Navbar
         githubToken={githubToken}
         onSaveToken={handleSaveToken}

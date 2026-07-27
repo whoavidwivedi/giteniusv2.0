@@ -1,9 +1,17 @@
 "use client"
 
-import { RiDownloadLine, RiQuestionLine, RiSparklingLine, RiStarLine } from "@remixicon/react"
+import {
+  RiDownloadLine,
+  RiBarChartBoxLine,
+  RiCheckLine,
+  RiCloseLine,
+  RiFileCopyLine,
+  RiFileTextLine,
+  RiGitRepositoryLine,
+  RiSparklingLine,
+} from "@remixicon/react"
 import React, { useRef, useState } from "react"
 
-import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { GitHubUser, GitHubRepo, ProfileAiAnalysis } from "@/lib/types"
 import { formatDate } from "@/lib/utils"
@@ -75,7 +83,7 @@ export function ExportPdfModal({ user, repos, stats, aiAnalysis, onClose }: Expo
         <div className="flex items-center justify-between border-b border-slate-200/80 px-6 py-4 dark:border-slate-800">
           <div className="flex items-center gap-3">
             <div className="rounded-xl bg-indigo-50 p-2.5 text-indigo-600 dark:bg-indigo-950 dark:text-indigo-400">
-              <RiQuestionLine className="h-5 w-5" />
+              <RiFileTextLine className="h-5 w-5" />
             </div>
             <div>
               <h3 className="text-lg font-bold text-slate-900 dark:text-white">
@@ -96,12 +104,12 @@ export function ExportPdfModal({ user, repos, stats, aiAnalysis, onClose }: Expo
             >
               {copiedMarkdown ? (
                 <>
-                  <RiQuestionLine className="h-3.5 w-3.5 text-emerald-600" />
+                  <RiCheckLine className="h-3.5 w-3.5 text-emerald-600" />
                   <span className="font-medium text-emerald-600">Copied README Tag</span>
                 </>
               ) : (
                 <>
-                  <RiQuestionLine className="h-3.5 w-3.5" />
+                  <RiFileCopyLine className="h-3.5 w-3.5" />
                   <span>Copy README Badge</span>
                 </>
               )}
@@ -131,7 +139,7 @@ export function ExportPdfModal({ user, repos, stats, aiAnalysis, onClose }: Expo
               onClick={onClose}
               className="cursor-pointer rounded-xl p-2 text-slate-400 hover:bg-slate-100 hover:text-slate-600 dark:hover:bg-slate-800 dark:hover:text-slate-200"
             >
-              <RiQuestionLine className="h-5 w-5" />
+              <RiCloseLine className="h-5 w-5" />
             </button>
           </div>
         </div>
@@ -219,7 +227,7 @@ export function ExportPdfModal({ user, repos, stats, aiAnalysis, onClose }: Expo
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <h3 className="mb-2.5 flex items-center gap-1.5 text-xs font-bold tracking-wider text-slate-900 uppercase">
-                  <RiQuestionLine className="h-4 w-4 text-indigo-600" />
+                  <RiBarChartBoxLine className="h-4 w-4 text-indigo-600" />
                   Domain Competency Scores
                 </h3>
                 <div className="space-y-2">
@@ -242,7 +250,7 @@ export function ExportPdfModal({ user, repos, stats, aiAnalysis, onClose }: Expo
 
               <div>
                 <h3 className="mb-2.5 flex items-center gap-1.5 text-xs font-bold tracking-wider text-slate-900 uppercase">
-                  <RiQuestionLine className="mb-3 h-10 w-10 text-slate-300 dark:text-slate-600" />
+                  <RiSparklingLine className="h-4 w-4 text-indigo-600" />
                   Key Strengths & Role Fit
                 </h3>
                 <ul className="space-y-1.5 text-xs text-slate-700">
@@ -274,7 +282,7 @@ export function ExportPdfModal({ user, repos, stats, aiAnalysis, onClose }: Expo
             {/* Top Repositories Breakdown */}
             <div>
               <h3 className="mb-2.5 flex items-center gap-1.5 text-xs font-bold tracking-wider text-slate-900 uppercase">
-                <RiQuestionLine className="h-4 w-4 text-indigo-600" />
+                <RiGitRepositoryLine className="h-4 w-4 text-indigo-600" />
                 Featured Repository Intelligence
               </h3>
               <div className="grid grid-cols-2 gap-3">

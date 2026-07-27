@@ -5,7 +5,6 @@ import {
   RiSparklingLine,
   RiUser3Line,
   RiRobot2Line,
-  RiQuestionLine,
   RiFlashlightLine,
   RiFileCopyLine,
   RiCheckLine,
@@ -13,7 +12,7 @@ import {
 import React, { useState, useRef, useEffect } from "react"
 
 import { Button } from "@/components/ui/button"
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card"
+import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { GitHubUser, GitHubRepo, ProfileAiAnalysis, ChatMessage } from "@/lib/types"
 
 interface AssistantTabProps {
