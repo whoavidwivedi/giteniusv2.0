@@ -1,12 +1,12 @@
 import {
   RiPulseLine,
   RiCodeBoxLine,
-  RiCalendarLine,
+  RiFireLine,
   RiGitCommitLine,
   RiGitPullRequestLine,
   RiSparklingLine,
   RiLineChartLine,
-  RiQuestionLine,
+  RiTeamLine,
 } from "@remixicon/react"
 import React, { useMemo } from "react"
 import {
@@ -19,8 +19,6 @@ import {
   Area,
   XAxis,
   YAxis,
-  BarChart,
-  Bar,
 } from "recharts"
 
 import { Badge } from "@/components/ui/badge"
@@ -37,11 +35,6 @@ interface ActivityTabProps {
 export function ActivityTab({ languages, events, aiAnalysis }: ActivityTabProps) {
   // Aggregate recent events by type
   const eventCounts = useMemo(() => {
-    const iconMap: Record<string, React.ElementType> = {
-      PushEvent: RiGitCommitLine,
-      PullRequestEvent: RiGitPullRequestLine,
-      CreateEvent: RiPulseLine,
-    }
     const counts: Record<string, number> = {
       PushEvent: 0,
       PullRequestEvent: 0,
@@ -99,7 +92,7 @@ export function ActivityTab({ languages, events, aiAnalysis }: ActivityTabProps)
 
         <Card className="flex items-center gap-3 p-4">
           <div className="rounded-2xl bg-emerald-50 p-3 text-emerald-600 dark:bg-emerald-950 dark:text-emerald-400">
-            <RiQuestionLine className="h-6 w-6" />
+            <RiFireLine className="h-6 w-6" />
           </div>
           <div>
             <div className="text-xs text-slate-500 dark:text-slate-400">Activity Rating</div>
@@ -123,7 +116,7 @@ export function ActivityTab({ languages, events, aiAnalysis }: ActivityTabProps)
 
         <Card className="flex items-center gap-3 p-4">
           <div className="rounded-2xl bg-blue-50 p-3 text-blue-600 dark:bg-blue-950 dark:text-blue-400">
-            <RiQuestionLine className="h-6 w-6" />
+            <RiTeamLine className="h-6 w-6" />
           </div>
           <div>
             <div className="text-xs text-slate-500 dark:text-slate-400">Collaboration Style</div>

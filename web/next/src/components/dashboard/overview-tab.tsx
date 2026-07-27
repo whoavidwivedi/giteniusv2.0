@@ -1,10 +1,11 @@
 import {
-  RiQuestionLine,
+  RiCheckboxCircleLine,
   RiBriefcaseLine,
   RiLineChartLine,
   RiSparklingLine,
   RiFlashlightLine,
   RiFocus2Line,
+  RiChatQuoteLine,
 } from "@remixicon/react"
 import React from "react"
 import {
@@ -109,7 +110,7 @@ export function OverviewTab({ aiAnalysis }: OverviewTabProps) {
           <CardHeader>
             <div className="flex items-center justify-between">
               <CardTitle className="flex items-center gap-2">
-                <RiQuestionLine className="h-4 w-4 text-indigo-600 dark:text-indigo-400" />
+                <RiLineChartLine className="h-4 w-4 text-indigo-600 dark:text-indigo-400" />
                 <span>Detected Skill Proficiency Scores</span>
               </CardTitle>
               <Badge variant="secondary">{aiAnalysis.topSkills.length} Core Technologies</Badge>
@@ -166,7 +167,7 @@ export function OverviewTab({ aiAnalysis }: OverviewTabProps) {
                   key={index}
                   className="flex items-start gap-3 rounded-xl border border-slate-100 bg-slate-50 p-3 dark:border-slate-800/80 dark:bg-slate-800/40"
                 >
-                  <RiQuestionLine className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" />
+                  <RiCheckboxCircleLine className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" />
                   <span className="text-xs leading-relaxed font-medium text-slate-700 dark:text-slate-300">
                     {strength}
                   </span>
@@ -201,7 +202,7 @@ export function OverviewTab({ aiAnalysis }: OverviewTabProps) {
 
               <div className="space-y-1 rounded-xl border border-slate-200/80 bg-slate-50 p-3.5 text-xs dark:border-slate-800 dark:bg-slate-800/50">
                 <span className="flex items-center gap-1.5 font-bold text-slate-900 dark:text-white">
-                  <RiQuestionLine className="h-3.5 w-3.5 text-indigo-500" />
+                  <RiChatQuoteLine className="h-3.5 w-3.5 text-indigo-500" />
                   Recruiter Takeaway:
                 </span>
                 <p className="leading-relaxed text-slate-600 dark:text-slate-300">
