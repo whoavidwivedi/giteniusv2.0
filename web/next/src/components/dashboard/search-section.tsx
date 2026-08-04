@@ -1,6 +1,6 @@
 "use client"
 
-import { RiSearchLine, RiSparklingLine, RiUser3Line, RiLineChartLine } from "@remixicon/react"
+import { RiSearchLine, RiUser3Line, RiLineChartLine } from "@remixicon/react"
 import React, { useState } from "react"
 
 import { Button } from "@/components/ui/button"
@@ -35,25 +35,20 @@ export function SearchSection({ onSearch, isAnalyzing, currentUsername }: Search
   }
 
   return (
-    <div className="relative overflow-hidden rounded-3xl border border-slate-200/80 bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 p-6 text-white shadow-xl sm:p-10 dark:border-slate-800">
+    <div className="relative overflow-hidden rounded-3xl border border-slate-200 border-slate-200/80 bg-white p-6 text-slate-900 text-white shadow-xl sm:p-10 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-100">
       {/* Background glow effects */}
-      <div className="absolute -top-24 -right-24 h-72 w-72 rounded-full bg-indigo-500/20 blur-3xl" />
-      <div className="absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-violet-500/20 blur-3xl" />
 
       <div className="relative z-10 mx-auto max-w-3xl text-center">
-        <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-indigo-500/20 bg-indigo-500/10 px-3 py-1 text-xs font-medium text-indigo-300">
-          <RiSparklingLine className="h-3.5 w-3.5 text-indigo-400" />
+        <div className="hidden">
           <span>AI-Powered GitHub Talent Intelligence</span>
         </div>
 
         <h1 className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
           Analyze Any GitHub Profile <br className="hidden sm:inline" />
-          <span className="bg-gradient-to-r from-indigo-300 via-white to-violet-300 bg-clip-text text-transparent">
-            Instantly with AI
-          </span>
+          <span className="text-slate-900 dark:text-slate-100">Instantly with AI</span>
         </h1>
 
-        <p className="mx-auto mt-3 max-w-xl text-sm text-slate-300/90 sm:text-base">
+        <p className="mx-auto mt-3 max-w-xl text-sm text-slate-600 sm:text-base dark:text-slate-400">
           Deep repository analysis, skill proficiency scoring, developer archetypes, activity
           metrics, and 1-click exportable portfolio report.
         </p>
@@ -73,7 +68,7 @@ export function SearchSection({ onSearch, isAnalyzing, currentUsername }: Search
               value={inputUsername}
               onChange={(e) => setInputUsername(e.target.value)}
               disabled={isAnalyzing}
-              className="w-full rounded-2xl border border-slate-700/80 bg-slate-900/90 py-3.5 pr-4 pl-10 text-sm text-white placeholder-slate-400 transition-all outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-500/30"
+              className="w-full rounded-2xl border border-slate-200 bg-slate-900/90 py-3.5 pr-4 pl-10 text-sm text-white placeholder-slate-400 transition-all outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-500/30 dark:border-slate-800"
             />
           </div>
 
@@ -99,9 +94,9 @@ export function SearchSection({ onSearch, isAnalyzing, currentUsername }: Search
         </form>
 
         {/* Preset Sample Profiles */}
-        <div className="mt-6 border-t border-slate-800/80 pt-4">
+        <div className="mt-6 border-t border-slate-200 pt-4 dark:border-slate-800">
           <div className="mb-2.5 flex items-center justify-center gap-1.5 text-xs text-slate-400">
-            <RiLineChartLine className="h-3.5 w-3.5 text-indigo-400" />
+            <RiLineChartLine className="h-3.5 w-3.5 text-slate-500 dark:text-slate-400" />
             <span>Try analyzing sample developer profiles:</span>
           </div>
 
@@ -112,9 +107,9 @@ export function SearchSection({ onSearch, isAnalyzing, currentUsername }: Search
                 type="button"
                 onClick={() => handleSelectPreset(dev.username)}
                 disabled={isAnalyzing}
-                className="inline-flex cursor-pointer items-center gap-1.5 rounded-xl border border-slate-700/60 bg-slate-800/50 px-3 py-1.5 text-xs font-medium text-slate-200 transition-all hover:border-indigo-500/50 hover:bg-indigo-950/40 hover:text-white"
+                className="inline-flex cursor-pointer items-center gap-1.5 rounded-xl border border-slate-700/60 bg-slate-100 px-3 py-1.5 text-xs font-medium text-slate-700 transition-all hover:border-indigo-500/50 hover:bg-indigo-950/40 hover:text-white dark:bg-slate-800 dark:text-slate-300"
               >
-                <span className="font-semibold text-indigo-300">@{dev.username}</span>
+                <span className="font-semibold">@{dev.username}</span>
                 <span className="xs:inline hidden text-[11px] text-slate-400">• {dev.title}</span>
               </button>
             ))}

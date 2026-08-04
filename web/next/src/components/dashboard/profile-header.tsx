@@ -2,19 +2,13 @@
 
 import {
   RiMapPinLine,
-  RiStarLine,
-  RiGitBranchLine,
-  RiTeamLine,
-  RiCalendarLine,
-  RiSparklingLine,
-  RiExternalLinkLine,
+  RiBuildingLine,
   RiLinksLine,
-  RiBriefcaseLine,
-  RiBuilding4Line,
+  RiGithubLine,
   RiCheckLine,
-  RiFileCopyLine,
-  RiGitRepositoryLine,
-  RiCodeSSlashLine,
+  RiStarLine,
+  RiGitMergeLine,
+  RiCalendarLine,
 } from "@remixicon/react"
 import React, { useState } from "react"
 
@@ -22,7 +16,6 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { GitHubUser, ProfileAiAnalysis } from "@/lib/types"
-import { formatDate, formatNumber } from "@/lib/utils"
 
 interface ProfileHeaderProps {
   user: GitHubUser
@@ -36,7 +29,7 @@ interface ProfileHeaderProps {
 }
 
 export function ProfileHeader({ user, stats, aiAnalysis }: ProfileHeaderProps) {
-  const [copiedPitch, setCopiedPitch] = useState(false)
+  const [copied, setCopied] = useState(false)
 
   const handleCopyPitch = () => {
     const textToCopy = `${aiAnalysis.developerArchetype}: ${aiAnalysis.elevatorPitch}\n\nTop Skills: ${aiAnalysis.topSkills
@@ -44,213 +37,234 @@ export function ProfileHeader({ user, stats, aiAnalysis }: ProfileHeaderProps) {
       .map((s) => s.name)
       .join(", ")}`
     navigator.clipboard.writeText(textToCopy)
-    setCopiedPitch(true)
-    setTimeout(() => setCopiedPitch(false), 2000)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
   }
 
   const getScoreColor = (score: number) => {
     if (score >= 90)
-      return "text-emerald-600 bg-emerald-50 border-emerald-200 dark:bg-emerald-950/80 dark:text-emerald-400 dark:border-emerald-800"
+      return "text-emerald-600 border-emerald-200 bg-emerald-50 dark:border-emerald-900/50 dark:bg-emerald-900/20"
     if (score >= 80)
-      return "text-indigo-600 bg-indigo-50 border-indigo-200 dark:bg-indigo-950/80 dark:text-indigo-400 dark:border-indigo-800"
+      return "text-indigo-600 border-indigo-200 bg-indigo-50 dark:border-indigo-900/50 dark:bg-indigo-900/20"
     if (score >= 70)
-      return "text-blue-600 bg-blue-50 border-blue-200 dark:bg-blue-950/80 dark:text-blue-400 dark:border-blue-800"
-    return "text-amber-600 bg-amber-50 border-amber-200 dark:bg-amber-950/80 dark:text-amber-400 dark:border-amber-800"
+      return "text-amber-600 border-amber-200 bg-amber-50 dark:border-amber-900/50 dark:bg-amber-900/20"
+    return "text-slate-600 border-slate-200 bg-slate-50 dark:border-slate-800 dark:bg-slate-800/50"
   }
 
   return (
-    <Card className="overflow-hidden border-slate-200/90 shadow-md dark:border-slate-800 dark:bg-slate-900/95">
-      <div className="flex flex-col items-start justify-between gap-6 lg:flex-row">
-        {/* Left Column: Avatar & Basic Info */}
-        <div className="flex w-full flex-1 flex-col items-start gap-5 sm:flex-row">
-          <div className="group relative">
+    <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+      {/* Left Column: Core Identity */}
+      <Card className="flex flex-col justify-between overflow-hidden p-6 lg:col-span-2">
+        <div className="flex flex-col gap-6 sm:flex-row sm:items-start">
+          <div className="relative">
             <img
               src={user.avatar_url}
-              alt={user.name || user.login}
-              className="h-24 w-24 rounded-2xl object-cover shadow-md ring-4 ring-slate-100 sm:h-28 sm:w-28 dark:ring-slate-800"
+              alt={user.login}
+              className="h-24 w-24 rounded-3xl object-cover shadow-sm ring-4 ring-white sm:h-32 sm:w-32 dark:ring-slate-900"
             />
             {user.hireable && (
-              <span
-                className="absolute -right-1 -bottom-1 flex h-6 w-6 items-center justify-center rounded-full bg-emerald-500 text-white shadow-sm ring-2 ring-white dark:ring-slate-900"
-                title="Hireable Developer"
-              >
-                <RiBriefcaseLine className="h-3.5 w-3.5" />
+              <span className="absolute -right-2 -bottom-2 inline-flex items-center gap-1 rounded-full border border-white bg-emerald-100 px-2.5 py-1 text-[10px] font-bold text-emerald-700 shadow-sm dark:border-slate-900 dark:bg-emerald-900/50 dark:text-emerald-400">
+                <span className="relative flex h-1.5 w-1.5">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                </span>
+                Available for Hire
               </span>
             )}
           </div>
 
-          <div className="min-w-0 flex-1 space-y-2">
-            <div className="flex flex-wrap items-center gap-2">
-              <h2 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
-                {user.name || user.login}
-              </h2>
-              <a
-                href={user.html_url}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-1 text-sm font-medium text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-400"
-              >
-                @{user.login}
-                <RiExternalLinkLine className="h-3.5 w-3.5" />
-              </a>
-              {user.hireable && (
-                <Badge variant="secondary" className="text-xs">
-                  Available for Hire
-                </Badge>
-              )}
-            </div>
-
-            {/* AI Archetype Pill */}
-            <div className="flex items-center gap-2">
-              <Badge variant="secondary" className="px-3 py-1 text-xs font-semibold">
-                <RiSparklingLine className="mr-1 h-3 w-3 text-indigo-500" />
-                {aiAnalysis.developerArchetype}
-              </Badge>
-            </div>
-
-            {/* User Metadata info */}
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 pt-1 text-xs text-slate-600 dark:text-slate-400">
-              {user.company && (
-                <span className="inline-flex items-center gap-1">
-                  <RiBuilding4Line className="h-3.5 w-3.5 text-slate-400" />
-                  {user.company}
-                </span>
-              )}
-              {user.location && (
-                <span className="inline-flex items-center gap-1">
-                  <RiMapPinLine className="mt-0.5 h-3.5 w-3.5 shrink-0 opacity-70" />
-                  {user.location}
-                </span>
-              )}
-              <span className="inline-flex items-center gap-1">
-                <RiCalendarLine className="h-3.5 w-3.5 text-slate-400" />
-                Joined {formatDate(user.created_at)} ({stats.accountAgeYears}y exp)
-              </span>
-              {user.blog && (
+          <div className="flex-1 space-y-4">
+            <div>
+              <div className="flex flex-wrap items-center gap-2">
+                <h2 className="text-2xl font-black tracking-tight text-slate-900 sm:text-3xl dark:text-white">
+                  {user.name || user.login}
+                </h2>
                 <a
-                  href={user.blog.startsWith("http") ? user.blog : `https://${user.blog}`}
+                  href={user.html_url}
                   target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex max-w-[200px] items-center gap-1 truncate text-indigo-600 hover:underline dark:text-indigo-400"
+                  rel="noopener noreferrer"
+                  className="text-slate-400 transition-colors hover:text-slate-900 dark:hover:text-white"
                 >
-                  <RiLinksLine className="mr-1 h-3.5 w-3.5" />
-                  {user.blog.replace(/^https?:\/\//, "")}
+                  <RiGithubLine className="h-6 w-6" />
                 </a>
+              </div>
+              <p className="text-sm font-medium text-slate-500 dark:text-slate-400">
+                @{user.login}
+              </p>
+            </div>
+
+            {/* Archetype Pill */}
+            <div className="inline-flex items-center gap-1.5 rounded-full border border-indigo-200/50 bg-indigo-50/50 px-3 py-1 dark:border-indigo-500/20 dark:bg-indigo-500/10">
+              <span className="text-xs font-bold text-slate-900 dark:text-slate-100">
+                {aiAnalysis.developerArchetype}
+              </span>
+            </div>
+
+            {user.bio && (
+              <p className="text-sm leading-relaxed text-slate-700 sm:max-w-xl dark:text-slate-300">
+                {user.bio}
+              </p>
+            )}
+
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs font-medium text-slate-600 dark:text-slate-400">
+              {user.location && (
+                <div className="flex items-center gap-1.5">
+                  <RiMapPinLine className="h-4 w-4" />
+                  {user.location}
+                </div>
+              )}
+              {user.company && (
+                <div className="flex items-center gap-1.5">
+                  <RiBuildingLine className="h-4 w-4" />
+                  {user.company}
+                </div>
+              )}
+              {user.blog && (
+                <div className="flex items-center gap-1.5">
+                  <RiLinksLine className="h-4 w-4" />
+                  <a
+                    href={user.blog.startsWith("http") ? user.blog : `https://${user.blog}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-indigo-600 hover:underline dark:hover:text-indigo-400"
+                  >
+                    Portfolio
+                  </a>
+                </div>
               )}
             </div>
           </div>
         </div>
 
-        {/* Right Column: AI Dev Score Card */}
-        <div className="flex w-full min-w-[220px] items-center justify-between rounded-2xl border border-slate-200/80 bg-slate-50 p-4 lg:w-auto lg:flex-col lg:justify-center dark:border-slate-800 dark:bg-slate-800/50">
-          <div className="flex items-center gap-3">
+        <div className="mt-8 flex flex-wrap gap-2 border-t border-slate-100 pt-6 dark:border-slate-800">
+          {aiAnalysis.topSkills.slice(0, 6).map((skill, i) => (
+            <Badge
+              key={i}
+              variant="secondary"
+              className="bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700"
+            >
+              {skill.name}
+            </Badge>
+          ))}
+          {aiAnalysis.topSkills.length > 6 && (
+            <Badge
+              variant="outline"
+              className="border-slate-200 text-slate-500 dark:border-slate-800"
+            >
+              +{aiAnalysis.topSkills.length - 6} more
+            </Badge>
+          )}
+        </div>
+      </Card>
+
+      <div className="flex flex-col gap-6">
+        {/* Right Column: Dev Score Card */}
+        <Card className="bg-slate-900 p-6 text-white shadow-lg dark:bg-slate-100 dark:text-slate-900">
+          <div className="flex items-center justify-between">
+            <h3 className="text-sm font-bold text-slate-100 dark:text-slate-600">Dev Score</h3>
+            <div className="flex items-center gap-1 rounded-full bg-white/20 px-2 py-0.5 text-[10px] font-bold backdrop-blur-md dark:bg-black/10">
+              <span>Percentile: Top {Math.max(1, 100 - aiAnalysis.overallScore)}%</span>
+            </div>
+          </div>
+
+          <div className="mt-4 flex items-end gap-4">
             <div
               className={`flex h-14 w-14 items-center justify-center rounded-2xl border-2 text-2xl font-black shadow-sm ${getScoreColor(aiAnalysis.overallScore)}`}
             >
               {aiAnalysis.overallScore}
             </div>
-            <div>
-              <div className="text-xs font-semibold tracking-wider text-slate-500 uppercase dark:text-slate-400">
-                Dev Impact Score
-              </div>
-              <div className="text-xs font-medium text-slate-700 dark:text-slate-300">
-                AI Percentile:{" "}
-                <span className="font-bold text-indigo-600 dark:text-indigo-400">
-                  Top {Math.max(1, 100 - aiAnalysis.overallScore)}%
-                </span>
-              </div>
+            <div className="pb-1 text-xs font-medium text-slate-200 dark:text-slate-500">
+              <p>Based on repository impact,</p>
+              <p>consistency & code quality.</p>
             </div>
           </div>
+        </Card>
 
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={handleCopyPitch}
-            className="mt-0 w-auto text-xs lg:mt-3 lg:w-full"
-          >
-            {copiedPitch ? (
-              <>
-                <RiCheckLine className="h-3.5 w-3.5 text-emerald-600" />
-                <span className="font-medium text-emerald-600">Copied Bio</span>
-              </>
-            ) : (
-              <>
-                <RiFileCopyLine className="h-3.5 w-3.5" />
-                <span>Copy Bio Pitch</span>
-              </>
-            )}
-          </Button>
-        </div>
+        {/* Elevator Pitch Box */}
+        <Card className="flex-1 border-indigo-100 bg-indigo-50/30 p-5 dark:border-indigo-900/30 dark:bg-indigo-900/10">
+          <div className="mb-3 flex items-center justify-between">
+            <h4 className="text-xs font-bold tracking-wider text-indigo-900 uppercase dark:text-indigo-300">
+              Executive Bio & Summary
+            </h4>
+            <Button
+              variant="ghost"
+              size="icon-sm"
+              onClick={handleCopyPitch}
+              className="h-6 w-6 text-indigo-600 hover:bg-indigo-100 dark:text-indigo-400 dark:hover:bg-indigo-900/50"
+              title="Copy Pitch"
+            >
+              {copied ? (
+                <RiCheckLine className="h-3.5 w-3.5" />
+              ) : (
+                <RiCheckLine className="h-3.5 w-3.5" />
+              )}
+            </Button>
+          </div>
+          <p className="text-sm leading-relaxed font-medium text-indigo-950 italic dark:text-indigo-200">
+            "{aiAnalysis.elevatorPitch}"
+          </p>
+          <p className="mt-3 text-xs leading-relaxed text-slate-600 dark:text-slate-400">
+            {aiAnalysis.executiveSummary}
+          </p>
+        </Card>
       </div>
 
-      {/* AI Elevator Pitch Box */}
-      <div className="mt-5 rounded-2xl border border-indigo-100 bg-indigo-50/50 p-4 dark:border-indigo-900/50 dark:bg-indigo-950/20">
-        <div className="mb-1 flex items-center gap-2">
-          <RiSparklingLine className="h-4 w-4 text-indigo-600 dark:text-indigo-400" />
-          <h4 className="text-xs font-bold tracking-wider text-indigo-900 uppercase dark:text-indigo-300">
-            AI Executive Bio & Summary
-          </h4>
-        </div>
-        <p className="text-sm leading-relaxed font-medium text-slate-700 dark:text-slate-300">
-          "{aiAnalysis.elevatorPitch}"
-        </p>
-        <p className="mt-2 border-t border-indigo-100/80 pt-2 text-xs text-slate-600 dark:border-indigo-900/30 dark:text-slate-400">
-          {aiAnalysis.executiveSummary}
-        </p>
+      {/* GitHub Raw Stats Strip */}
+      <div className="col-span-1 grid grid-cols-2 gap-4 lg:col-span-3 lg:grid-cols-5">
+        <Card className="flex items-center gap-3 p-4">
+          <div className="rounded-xl bg-slate-100 p-2 text-slate-600 dark:bg-slate-800 dark:text-slate-400">
+            <RiGithubLine className="h-5 w-5" />
+          </div>
+          <div>
+            <p className="text-[10px] font-semibold text-slate-500 uppercase">Repositories</p>
+            <p className="text-lg font-bold text-slate-900 dark:text-white">{user.public_repos}</p>
+          </div>
+        </Card>
+
+        <Card className="flex items-center gap-3 p-4">
+          <div className="rounded-xl bg-amber-50 p-2 text-amber-600 dark:bg-amber-950 dark:text-amber-400">
+            <RiStarLine className="h-5 w-5" />
+          </div>
+          <div>
+            <p className="text-[10px] font-semibold text-slate-500 uppercase">Total Stars</p>
+            <p className="text-lg font-bold text-slate-900 dark:text-white">{stats.totalStars}</p>
+          </div>
+        </Card>
+
+        <Card className="flex items-center gap-3 p-4">
+          <div className="rounded-xl bg-emerald-50 p-2 text-emerald-600 dark:bg-emerald-950 dark:text-emerald-400">
+            <RiGitMergeLine className="h-5 w-5" />
+          </div>
+          <div>
+            <p className="text-[10px] font-semibold text-slate-500 uppercase">Total Forks</p>
+            <p className="text-lg font-bold text-slate-900 dark:text-white">{stats.totalForks}</p>
+          </div>
+        </Card>
+
+        <Card className="flex items-center gap-3 p-4">
+          <div className="rounded-xl bg-blue-50 p-2 text-blue-600 dark:bg-blue-950 dark:text-blue-400">
+            <RiCheckLine className="h-5 w-5" />
+          </div>
+          <div>
+            <p className="text-[10px] font-semibold text-slate-500 uppercase">Top Language</p>
+            <p className="truncate text-lg font-bold text-slate-900 dark:text-white">
+              {stats.primaryLanguage}
+            </p>
+          </div>
+        </Card>
+
+        <Card className="flex items-center gap-3 p-4 max-lg:col-span-2">
+          <div className="rounded-xl bg-purple-50 p-2 text-purple-600 dark:bg-purple-950 dark:text-purple-400">
+            <RiCalendarLine className="h-5 w-5" />
+          </div>
+          <div>
+            <p className="text-[10px] font-semibold text-slate-500 uppercase">GitHub Age</p>
+            <p className="text-lg font-bold text-slate-900 dark:text-white">
+              {stats.accountAgeYears} {stats.accountAgeYears === 1 ? "Year" : "Years"}
+            </p>
+          </div>
+        </Card>
       </div>
-
-      {/* Quick Metrics Grid */}
-      <div className="mt-6 grid grid-cols-2 gap-3 border-t border-slate-200/80 pt-5 sm:grid-cols-5 dark:border-slate-800">
-        <div className="flex flex-col rounded-xl border border-slate-100 bg-slate-50 p-3 dark:border-slate-800 dark:bg-slate-800/40">
-          <div className="flex items-center gap-1.5 text-xs font-medium text-slate-500 dark:text-slate-400">
-            <RiStarLine className="h-3.5 w-3.5 text-amber-500" />
-            <span>Total Stars</span>
-          </div>
-          <span className="mt-1 text-lg font-bold text-slate-900 dark:text-white">
-            {formatNumber(stats.totalStars)}
-          </span>
-        </div>
-
-        <div className="flex flex-col rounded-xl border border-slate-100 bg-slate-50 p-3 dark:border-slate-800 dark:bg-slate-800/40">
-          <div className="flex items-center gap-1.5 text-xs font-medium text-slate-500 dark:text-slate-400">
-            <RiGitRepositoryLine className="h-3.5 w-3.5 text-indigo-500" />
-            <span>Repositories</span>
-          </div>
-          <span className="mt-1 text-lg font-bold text-slate-900 dark:text-white">
-            {user.public_repos}
-          </span>
-        </div>
-
-        <div className="flex flex-col rounded-xl border border-slate-100 bg-slate-50 p-3 dark:border-slate-800 dark:bg-slate-800/40">
-          <div className="flex items-center gap-1.5 text-xs font-medium text-slate-500 dark:text-slate-400">
-            <RiGitBranchLine className="h-3.5 w-3.5 text-emerald-500" />
-            <span>Forks Earned</span>
-          </div>
-          <span className="mt-1 text-lg font-bold text-slate-900 dark:text-white">
-            {formatNumber(stats.totalForks)}
-          </span>
-        </div>
-
-        <div className="flex flex-col rounded-xl border border-slate-100 bg-slate-50 p-3 dark:border-slate-800 dark:bg-slate-800/40">
-          <div className="flex items-center gap-1.5 text-xs font-medium text-slate-500 dark:text-slate-400">
-            <RiTeamLine className="h-3.5 w-3.5 text-blue-500" />
-            <span>Followers</span>
-          </div>
-          <span className="mt-1 text-lg font-bold text-slate-900 dark:text-white">
-            {formatNumber(user.followers)}
-          </span>
-        </div>
-
-        <div className="col-span-2 flex flex-col rounded-xl border border-slate-100 bg-slate-50 p-3 sm:col-span-1 dark:border-slate-800 dark:bg-slate-800/40">
-          <div className="flex items-center gap-1.5 text-xs font-medium text-slate-500 dark:text-slate-400">
-            <RiCodeSSlashLine className="h-3.5 w-3.5 text-violet-500" />
-            <span>Top Language</span>
-          </div>
-          <span className="mt-1 truncate text-lg font-bold text-slate-900 dark:text-white">
-            {stats.primaryLanguage}
-          </span>
-        </div>
-      </div>
-    </Card>
+    </div>
   )
 }
