@@ -1,4 +1,9 @@
-import { RiGitCommitLine, RiGitPullRequestLine, RiInformationLine, RiLineChartLine } from "@remixicon/react"
+import {
+  RiGitCommitLine,
+  RiGitPullRequestLine,
+  RiInformationLine,
+  RiLineChartLine,
+} from "@remixicon/react"
 import React, { useMemo } from "react"
 import {
   PieChart,
@@ -45,8 +50,8 @@ export function ActivityTab({ languages, events, aiAnalysis }: ActivityTabProps)
     return [
       { type: "Code Commits", count: counts.PushEvent || 0, icon: RiGitCommitLine },
       { type: "Pull Requests", count: counts.PullRequestEvent || 0, icon: RiGitPullRequestLine },
-      { type: "Issues & Discussions", count: counts.IssuesEvent || 0, icon: RiPulseLine },
-      { type: "Starred & Forked", count: counts.WatchEvent || 0, icon: RiSparklingLine },
+      { type: "Issues & Discussions", count: counts.IssuesEvent || 0, icon: RiLineChartLine },
+      { type: "Starred & Forked", count: counts.WatchEvent || 0, icon: RiInformationLine },
     ]
   }, [events])
 

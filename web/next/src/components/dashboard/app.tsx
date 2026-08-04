@@ -3,11 +3,11 @@
 import {
   RiDashboardLine,
   RiCodeBoxLine,
-  RiPulseLine,
+  RiLineChartLine,
   RiRobot2Line,
   RiErrorWarningLine,
 } from "@remixicon/react"
-import React, { useState, useEffect, useCallback } from "react"
+import React, { useState, useCallback } from "react"
 
 import { ActivityTab } from "@/components/dashboard/activity-tab"
 import { AssistantTab } from "@/components/dashboard/assistant-tab"
@@ -27,12 +27,6 @@ export default function App() {
     }
     return "shadcn"
   })
-  const [githubToken, setGithubToken] = useState<string>(() => {
-    if (typeof window !== "undefined") {
-      return localStorage.getItem("gitcraft_token") || ""
-    }
-    return ""
-  })
 
   const [data, setData] = useState<AnalysisResponse | null>(null)
   const [isAnalyzing, setIsAnalyzing] = useState<boolean>(false)
@@ -44,64 +38,46 @@ export default function App() {
   const [showPdfModal, setShowPdfModal] = useState<boolean>(false)
 
   // Fetch and analyze profile
-  const analyzeProfile = useCallback(
-    async (targetUsername: string) => {
-      if (!targetUsername.trim()) return
+  const analyzeProfile = useCallback(async (targetUsername: string) => {
+    if (!targetUsername.trim()) return
 
-      setIsAnalyzing(true)
-      setError(null)
+    setIsAnalyzing(true)
+    setError(null)
 
-      try {
-        const queryParams = new URLSearchParams({ username: targetUsername.trim() })
-        const headers: Record<string, string> = {}
-        if (githubToken) {
-          headers["Authorization"] = `Bearer ${githubToken.trim()}`
+    try {
+      const queryParams = new URLSearchParams({ username: targetUsername.trim() })
+      const headers: Record<string, string> = {}
+
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/github/analyze?${queryParams.toString()}`,
+        { headers },
+      )
+      const result = await res.json()
+
+      if (!res.ok) {
+        const errBody = result.error || {}
+        throw {
+          message: errBody.message || "Failed to analyze profile.",
+          isRateLimit: errBody.code === "TOO_MANY_REQUESTS",
         }
-
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/github/analyze?${queryParams.toString()}`,
-          { headers },
-        )
-        const result = await res.json()
-
-        if (!res.ok) {
-          const errBody = result.error || {}
-          throw {
-            message: errBody.message || "Failed to analyze profile.",
-            isRateLimit: errBody.code === "TOO_MANY_REQUESTS",
-          }
-        }
-
-        setData(result.data)
-        setUsername(targetUsername.trim())
-        localStorage.setItem("gitcraft_last_user", targetUsername.trim())
-
-
-      } catch (err: any) {
-        console.error("Analysis Error:", err)
-        setError({
-          message: err.message || "An unexpected error occurred while analyzing the profile.",
-          isRateLimit: err.isRateLimit,
-        })
-      } finally {
-        setIsAnalyzing(false)
       }
-    },
-    [githubToken],
-  )
+
+      setData(result.data)
+      setUsername(targetUsername.trim())
+      localStorage.setItem("gitcraft_last_user", targetUsername.trim())
+    } catch (err: any) {
+      console.error("Analysis Error:", err)
+      setError({
+        message: err.message || "An unexpected error occurred while analyzing the profile.",
+        isRateLimit: err.isRateLimit,
+      })
+    } finally {
+      setIsAnalyzing(false)
+    }
+  }, [])
 
   return (
     <div className="min-h-svh bg-slate-50 pt-14 font-sans text-slate-900 transition-colors duration-200 selection:bg-indigo-500 selection:text-white dark:bg-slate-950 dark:text-slate-100">
-      {/* Top Navbar, offset below the fixed site navbar in the root layout */}
-      <Navbar
-        githubToken={githubToken}
-        onSaveToken={handleSaveToken}
-        onExportPdf={() => setShowPdfModal(true)}
-        hasData={!!data}
-        isAnalyzing={isAnalyzing}
-        onRefresh={() => analyzeProfile(username)}
-      />
-
       <main className="mx-auto max-w-7xl space-y-8 px-4 py-8 sm:px-6 lg:px-8">
         {/* Search Hero Box */}
         <SearchSection
@@ -201,7 +177,7 @@ export default function App() {
                       : "text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-white"
                   }`}
                 >
-                  <RiPulseLine className="h-4 w-4" />
+                  <RiLineChartLine className="h-4 w-4" />
                   <span>Coding Activity & Trends</span>
                 </button>
 
