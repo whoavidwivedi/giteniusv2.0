@@ -1,21 +1,6 @@
 "use client"
 
-import {
-  RiMapPinLine,
-  RiStarLine,
-  RiGitBranchLine,
-  RiTeamLine,
-  RiCalendarLine,
-  RiSparklingLine,
-  RiExternalLinkLine,
-  RiLinksLine,
-  RiBriefcaseLine,
-  RiBuilding4Line,
-  RiCheckLine,
-  RiFileCopyLine,
-  RiGitRepositoryLine,
-  RiCodeSSlashLine,
-} from "@remixicon/react"
+import { RiMapPinLine, RiBuildingLine, RiLinksLine, RiTwitterXLine, RiGithubLine, RiCheckLine, RiStarLine, RiGitMergeLine, RiCalendarLine } from "@remixicon/react"
 import React, { useState } from "react"
 
 import { Badge } from "@/components/ui/badge"
@@ -52,7 +37,7 @@ export function ProfileHeader({ user, stats, aiAnalysis }: ProfileHeaderProps) {
     if (score >= 90)
       return "text-emerald-600 bg-emerald-50 border-emerald-200 dark:bg-emerald-950/80 dark:text-emerald-400 dark:border-emerald-800"
     if (score >= 80)
-      return "text-indigo-600 bg-indigo-50 border-indigo-200 dark:bg-indigo-950/80 dark:text-indigo-400 dark:border-indigo-800"
+      return "text-slate-900 bg-indigo-50 border-indigo-200 dark:bg-indigo-950/80 dark:text-slate-100 dark:border-indigo-800"
     if (score >= 70)
       return "text-blue-600 bg-blue-50 border-blue-200 dark:bg-blue-950/80 dark:text-blue-400 dark:border-blue-800"
     return "text-amber-600 bg-amber-50 border-amber-200 dark:bg-amber-950/80 dark:text-amber-400 dark:border-amber-800"
@@ -88,7 +73,7 @@ export function ProfileHeader({ user, stats, aiAnalysis }: ProfileHeaderProps) {
                 href={user.html_url}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-1 text-sm font-medium text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-400"
+                className="inline-flex items-center gap-1 text-sm font-medium text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-indigo-400"
               >
                 @{user.login}
                 <RiExternalLinkLine className="h-3.5 w-3.5" />
@@ -103,7 +88,7 @@ export function ProfileHeader({ user, stats, aiAnalysis }: ProfileHeaderProps) {
             {/* AI Archetype Pill */}
             <div className="flex items-center gap-2">
               <Badge variant="secondary" className="px-3 py-1 text-xs font-semibold">
-                <RiSparklingLine className="mr-1 h-3 w-3 text-indigo-500" />
+
                 {aiAnalysis.developerArchetype}
               </Badge>
             </div>
@@ -131,7 +116,7 @@ export function ProfileHeader({ user, stats, aiAnalysis }: ProfileHeaderProps) {
                   href={user.blog.startsWith("http") ? user.blog : `https://${user.blog}`}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex max-w-[200px] items-center gap-1 truncate text-indigo-600 hover:underline dark:text-indigo-400"
+                  className="inline-flex max-w-[200px] items-center gap-1 truncate text-slate-900 hover:underline dark:text-slate-100"
                 >
                   <RiLinksLine className="mr-1 h-3.5 w-3.5" />
                   {user.blog.replace(/^https?:\/\//, "")}
@@ -154,8 +139,8 @@ export function ProfileHeader({ user, stats, aiAnalysis }: ProfileHeaderProps) {
                 Dev Impact Score
               </div>
               <div className="text-xs font-medium text-slate-700 dark:text-slate-300">
-                AI Percentile:{" "}
-                <span className="font-bold text-indigo-600 dark:text-indigo-400">
+                Percentile:{" "}
+                <span className="font-bold text-slate-900 dark:text-slate-100">
                   Top {Math.max(1, 100 - aiAnalysis.overallScore)}%
                 </span>
               </div>
@@ -186,9 +171,9 @@ export function ProfileHeader({ user, stats, aiAnalysis }: ProfileHeaderProps) {
       {/* AI Elevator Pitch Box */}
       <div className="mt-5 rounded-2xl border border-indigo-100 bg-indigo-50/50 p-4 dark:border-indigo-900/50 dark:bg-indigo-950/20">
         <div className="mb-1 flex items-center gap-2">
-          <RiSparklingLine className="h-4 w-4 text-indigo-600 dark:text-indigo-400" />
+
           <h4 className="text-xs font-bold tracking-wider text-indigo-900 uppercase dark:text-indigo-300">
-            AI Executive Bio & Summary
+            Executive Bio & Summary
           </h4>
         </div>
         <p className="text-sm leading-relaxed font-medium text-slate-700 dark:text-slate-300">

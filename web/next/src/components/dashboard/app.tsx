@@ -7,13 +7,11 @@ import {
   RiRobot2Line,
   RiErrorWarningLine,
 } from "@remixicon/react"
-import confetti from "canvas-confetti"
 import React, { useState, useEffect, useCallback } from "react"
 
 import { ActivityTab } from "@/components/dashboard/activity-tab"
 import { AssistantTab } from "@/components/dashboard/assistant-tab"
 import { ExportPdfModal } from "@/components/dashboard/export-pdf-modal"
-import { Navbar } from "@/components/dashboard/navbar"
 import { OverviewTab } from "@/components/dashboard/overview-tab"
 import { ProfileHeader } from "@/components/dashboard/profile-header"
 import { RepositoriesTab } from "@/components/dashboard/repositories-tab"
@@ -78,14 +76,7 @@ export default function App() {
         setUsername(targetUsername.trim())
         localStorage.setItem("gitcraft_last_user", targetUsername.trim())
 
-        // Fire celebratory confetti!
-        try {
-          confetti({
-            particleCount: 50,
-            spread: 60,
-            origin: { y: 0.6 },
-          })
-        } catch {}
+
       } catch (err: any) {
         console.error("Analysis Error:", err)
         setError({
@@ -98,22 +89,6 @@ export default function App() {
     },
     [githubToken],
   )
-
-  // Initial load
-  useEffect(() => {
-    if (username) {
-      analyzeProfile(username)
-    }
-  }, [])
-
-  const handleSaveToken = (newToken: string) => {
-    setGithubToken(newToken)
-    if (newToken) {
-      localStorage.setItem("gitcraft_token", newToken)
-    } else {
-      localStorage.removeItem("gitcraft_token")
-    }
-  }
 
   return (
     <div className="min-h-svh bg-slate-50 pt-14 font-sans text-slate-900 transition-colors duration-200 selection:bg-indigo-500 selection:text-white dark:bg-slate-950 dark:text-slate-100">
@@ -201,7 +176,7 @@ export default function App() {
                   }`}
                 >
                   <RiDashboardLine className="h-4 w-4" />
-                  <span>AI Overview & Skills</span>
+                  <span>Overview & Skills</span>
                 </button>
 
                 <button
@@ -235,12 +210,12 @@ export default function App() {
                   onClick={() => setActiveTab("assistant")}
                   className={`flex cursor-pointer items-center gap-2 rounded-xl px-4 py-2 text-xs font-semibold transition-all sm:text-sm ${
                     activeTab === "assistant"
-                      ? "bg-indigo-600 text-white shadow-sm dark:bg-indigo-500"
-                      : "text-indigo-600 hover:bg-indigo-50 dark:text-indigo-400 dark:hover:bg-indigo-950/50"
+                      ? "bg-slate-900 text-white shadow-sm dark:bg-slate-100 dark:text-slate-900"
+                      : "text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-white"
                   }`}
                 >
                   <RiRobot2Line className="h-4 w-4" />
-                  <span>AI Talent Scout Chat</span>
+                  <span>Assistant</span>
                 </button>
               </div>
             </div>

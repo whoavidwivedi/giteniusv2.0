@@ -1,13 +1,4 @@
-import {
-  RiPulseLine,
-  RiCodeBoxLine,
-  RiFireLine,
-  RiGitCommitLine,
-  RiGitPullRequestLine,
-  RiSparklingLine,
-  RiLineChartLine,
-  RiTeamLine,
-} from "@remixicon/react"
+import { RiGitCommitLine, RiGitPullRequestLine, RiInformationLine, RiLineChartLine } from "@remixicon/react"
 import React, { useMemo } from "react"
 import {
   PieChart,
@@ -92,7 +83,7 @@ export function ActivityTab({ languages, events, aiAnalysis }: ActivityTabProps)
 
         <Card className="flex items-center gap-3 p-4">
           <div className="rounded-2xl bg-emerald-50 p-3 text-emerald-600 dark:bg-emerald-950 dark:text-emerald-400">
-            <RiFireLine className="h-6 w-6" />
+            <RiLineChartLine className="h-6 w-6" />
           </div>
           <div>
             <div className="text-xs text-slate-500 dark:text-slate-400">Activity Rating</div>
@@ -116,7 +107,7 @@ export function ActivityTab({ languages, events, aiAnalysis }: ActivityTabProps)
 
         <Card className="flex items-center gap-3 p-4">
           <div className="rounded-2xl bg-blue-50 p-3 text-blue-600 dark:bg-blue-950 dark:text-blue-400">
-            <RiTeamLine className="h-6 w-6" />
+            <RiLineChartLine className="h-6 w-6" />
           </div>
           <div>
             <div className="text-xs text-slate-500 dark:text-slate-400">Collaboration Style</div>
@@ -134,7 +125,7 @@ export function ActivityTab({ languages, events, aiAnalysis }: ActivityTabProps)
           <CardHeader>
             <div className="flex items-center justify-between">
               <CardTitle className="flex items-center gap-2">
-                <RiCodeBoxLine className="h-4 w-4 text-indigo-600 dark:text-indigo-400" />
+                <RiLineChartLine className="h-4 w-4 text-indigo-600 dark:text-indigo-400" />
                 <span>Language Share Distribution</span>
               </CardTitle>
               <Badge variant="outline">{languages.length} Languages</Badge>
@@ -208,7 +199,7 @@ export function ActivityTab({ languages, events, aiAnalysis }: ActivityTabProps)
           <CardHeader>
             <div className="flex items-center justify-between">
               <CardTitle className="flex items-center gap-2">
-                <RiPulseLine className="h-4 w-4 text-indigo-600 dark:text-indigo-400" />
+                <RiLineChartLine className="h-4 w-4 text-indigo-600 dark:text-indigo-400" />
                 <span>Recent Event Velocity Trend</span>
               </CardTitle>
               <Badge variant="secondary">Public Stream</Badge>
